@@ -3,35 +3,38 @@ extends Node2D
 var speed = 100
 var velocity = Vector2()
 var lastdirection = Vector2()
+var guntype = "default"
 
-export var bodycolor = Vector3()
-export var haircolor = Vector3()
+var bodycolor = Vector3()
+var haircolor = Vector3()
+var upperbodycolor = Vector3()
+var lowerbodycolor = Vector3()
 
-var headsprite  = ""
-var upperbodysprite = ""
+var headsprite  = "res://Textures/Head/hair0.png"
+var upperbodysprite = "res://Textures/UpperBody/cloth0.png"
 var baseupperbodysprite = "res://Textures/Base/upperbodyatlas.png"
-var lowerbodysprite = ""
+var lowerbodysprite = "res://Textures/LowerBody/cloth0.png"
 var baseloweboddysprite = "res://Textures/Base/lowerbodyatlas.png"
 var gunsprite = "res://Textures/Guns/shotgun.png"
 
-var headpieces = []
-var upperbodypieces = []
-var lowerbodypieces = []
-var gunpieces = []
+var heads = []
+var lowerboddies = []
+var upperbodies = []
+var guns = []
 
-var headpiecesposition = 0
-var lowerbodypiecesposition = 0
-var upperbodypiecesposition = 0
-var gunpiecesposition = 0
+var headspos = 0
+var lowerboddiespos = 0
+var upperbodiespos = 0
+var gunspos = 0
 
 func _ready():
 	$ButtonLeft.hide()
 	$ButtonRight.hide()
 	$ColorPicker.hide()
-	headpieces =  _list_files_in_directory("res://Textures/Head")
-	lowerbodypieces =  _list_files_in_directory("res://Textures/LowerBody")
-	upperbodypieces =  _list_files_in_directory("res://Textures/UpperBody")
-	gunpieces = _list_files_in_directory(("res://Textures/Guns"))
+	heads =  _list_files_in_directory("res://Textures/Head")
+	lowerboddies =  _list_files_in_directory("res://Textures/LowerBody")
+	upperbodies =  _list_files_in_directory("res://Textures/UpperBody")
+	guns = _list_files_in_directory(("res://Textures/Guns"))
 	randomize()
 	_load_sprites(headsprite, upperbodysprite, baseupperbodysprite, lowerbodysprite, baseloweboddysprite, gunsprite)
 	_colorize()
@@ -40,21 +43,17 @@ func _process(delta):
 	_open_wardrobe()
 	_move_and_animate(delta)
 	
-	
-
 func _open_wardrobe():
 	if Input.is_action_just_pressed("ui_accept"):
 		$ButtonRight.visible = ! $ButtonRight.visible
 		$ButtonLeft.visible = ! $ButtonLeft.visible
-		#$ColorPicker.visible = ! $ColorPicker.visible
+		$ColorPicker.visible = ! $ColorPicker.visible
 		speed = 100
-		
 	if $ButtonLeft.visible:
 		speed = 0
-		_dress()
+		_dress_and_paint()
 	
-	
-func _dress():
+func _dress_and_paint():
 	$BaseUpperBodySprite.modulate = Color(bodycolor.x, bodycolor.y, bodycolor.z)
 	$BaseLowerBodySprite.modulate = Color(bodycolor.x, bodycolor.y, bodycolor.z)
 	if Input.is_action_pressed("mouse_left"):
@@ -115,68 +114,40 @@ func _move_and_animate(delta):
 		velocity.y += 1
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
+		
 	if velocity.length() > 0:
 		lastdirection = velocity
 		velocity = velocity.normalized() * speed
-	else:
-		if lastdirection.y < 0:
-			#check upper body
-			$UpperBodyAnim.play("idlebackdefault")
-			$BaseUpperBodyAnim.play("idlebackdefault")
-			$HeadAnim.play("idleback")
-			$BaseLowerBodyAnim.play("idleback")
-			$LowerBodyAnim.play("idleback")
-			$GunAnim.play("idleback")
-		else:
-			#check upper body animation
-			$BaseUpperBodyAnim.play("idlefrontdefault")
-			$UpperBodyAnim.play("idlefrontdefault")
-			$HeadAnim.play("idlefront")
-			$BaseLowerBodyAnim.play("idlefront")
-			$LowerBodyAnim.play("idlefront")
-			$GunAnim.play("idlefront")
-		
-	position += velocity * delta
 		
 	if velocity.x != 0:
-		#check upper body animation
-		$BaseUpperBodyAnim.play("walkrightdefault")
-		$UpperBodyAnim.play("walkrightdefault")
-		$HeadAnim.play("walkright")
-		$BaseLowerBodyAnim.play("walkright")
-		$LowerBodyAnim.play("walkright")
-		$GunAnim.play("walkright")
-		
-		#flipsstuff
-		
-		
-		$BaseUpperBodySprite.flip_v = false
+		_animate("walkright")
 		$BaseUpperBodySprite.flip_h = velocity.x < 0
-		$UpperBodySprite.flip_v = false
 		$UpperBodySprite.flip_h = velocity.x < 0
-		$HeadSprite.flip_v = false
 		$HeadSprite.flip_h = velocity.x < 0
-		$BaseLowerBodySprite.flip_v = false
 		$BaseLowerBodySprite.flip_h = velocity.x < 0
-		$LowerBodySprite.flip_v = false
 		$LowerBodySprite.flip_h = velocity.x < 0
-		$GunSprite.flip_v = false
 		$GunSprite.flip_h = velocity.x < 0
-		
 	elif velocity.y > 0:
-		#check upper body
-		$BaseUpperBodyAnim.play("walkdowndefault")
-		$UpperBodyAnim.play("walkdowndefault")
-		$HeadAnim.play("walkright")
-		$BaseLowerBodyAnim.play("walkdown")
-		$LowerBodyAnim.play("walkdown")
+		_animate("walkdown")
 	elif velocity.y < 0:
-		#check upper body
-		$BaseUpperBodyAnim.play("walkupdefault")
-		$UpperBodyAnim.play("walkupdefault")
-		$LowerBodyAnim.play("walkup")
-		$BaseLowerBodyAnim.play("walkup")
-		$HeadAnim.play("walkup")
+		_animate("walkup")
+	else:
+		if lastdirection.y < 0:
+			_animate("idleback")
+		elif lastdirection.y > 0:
+			_animate("idlefront")
+		elif lastdirection.x != 0:
+			_animate("idleright")
+	
+	position += velocity * delta
+
+func _animate(animationname):
+	$UpperBodyAnim.play(animationname + guntype)
+	$BaseUpperBodyAnim.play(animationname + guntype)
+	$HeadAnim.play(animationname)
+	$BaseLowerBodyAnim.play(animationname)
+	$LowerBodyAnim.play(animationname)
+	$GunAnim.play(animationname)
 
 func _list_files_in_directory(path):
 	var files = []
@@ -190,49 +161,46 @@ func _list_files_in_directory(path):
 			break
 		elif file.ends_with(".png"):
 			files.append(file)
-
 	dir.list_dir_end()
-
+	
 	return files
 
 func _on_right_button_pressed():
 	if $ButtonRight.rect_position.y == -14:
-		if headpiecesposition < headpieces.size() -1 :
-			headpiecesposition += 1
+		if headspos < heads.size() -1 :
+			headspos += 1
 		else:
-			headpiecesposition = 0
-		$HeadSprite.texture = load("res://Textures/Head/" + headpieces[headpiecesposition])
-		#print(headpiecesposition)
+			headspos = 0
+		$HeadSprite.texture = load("res://Textures/Head/" + heads[headspos])
 	elif $ButtonRight.rect_position.y == -4:
-		if upperbodypiecesposition < upperbodypieces.size() -1 :
-			upperbodypiecesposition += 1
+		if upperbodiespos < upperbodies.size() -1 :
+			upperbodiespos += 1
 		else:
-			upperbodypiecesposition = 0
-		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upperbodypieces[upperbodypiecesposition])
+			upperbodiespos = 0
+		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upperbodies[upperbodiespos])
 	else:
-		if lowerbodypiecesposition < lowerbodypieces.size() -1 :
-			lowerbodypiecesposition += 1
+		if lowerboddiespos < lowerboddies.size() -1 :
+			lowerboddiespos += 1
 		else:
-			lowerbodypiecesposition = 0
-		$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lowerbodypieces[lowerbodypiecesposition])
+			lowerboddiespos = 0
+		$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lowerboddies[lowerboddiespos])
 
 func _on_button_left_pressed():
 	if $ButtonRight.rect_position.y == -14:
-		if headpiecesposition > 0 :
-			headpiecesposition -= 1
+		if headspos > 0 :
+			headspos -= 1
 		else:
-			headpiecesposition = headpieces.size() -1
-		$HeadSprite.texture = load("res://Textures/Head/" + headpieces[headpiecesposition])
-		#print(headpiecesposition)
+			headspos = heads.size() -1
+		$HeadSprite.texture = load("res://Textures/Head/" + heads[headspos])
 	elif $ButtonRight.rect_position.y == -4:
-		if upperbodypiecesposition > -1 :
-			upperbodypiecesposition -= 1
+		if upperbodiespos > -1 :
+			upperbodiespos -= 1
 		else:
-			upperbodypiecesposition = upperbodypieces.size() -1
-		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upperbodypieces[upperbodypiecesposition])
+			upperbodiespos = upperbodies.size() -1
+		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upperbodies[upperbodiespos])
 	else:
-		if lowerbodypiecesposition > -1 :
-			lowerbodypiecesposition -= 1
+		if lowerboddiespos > -1 :
+			lowerboddiespos -= 1
 		else:
-			lowerbodypiecesposition = lowerbodypieces.size() -1
-		$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lowerbodypieces[lowerbodypiecesposition])
+			lowerboddiespos = lowerboddies.size() -1
+		$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lowerboddies[lowerboddiespos])

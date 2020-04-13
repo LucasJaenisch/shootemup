@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://UI/littlearrowhover.png" type="Texture" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://UI/littlearrowleft.png" type="Texture" id=5]
 [ext_resource path="res://UI/littlearrowhoverleft.png" type="Texture" id=6]
 [ext_resource path="res://Textures/Base/upperbodyatlas.png" type="Texture" id=7]
-[ext_resource path="res://Textures/Guns/shotgun.png" type="Texture" id=8]
+[ext_resource path="res://Textures/UpperBody/cloth1.png" type="Texture" id=9]
+[ext_resource path="res://Textures/Head/hair1.png" type="Texture" id=10]
+[ext_resource path="res://Textures/Base/lowerbodyatlas.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.09367, 15.0005 )
@@ -44,8 +46,9 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=4]
 resource_name = "idleright"
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseLowerBodySprite:frame")
 tracks/0/interp = 1
@@ -53,14 +56,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "walkdown"
+[sub_resource type="Animation" id=5]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -76,8 +78,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "walkright"
+[sub_resource type="Animation" id=6]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -93,8 +94,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "walkup"
+[sub_resource type="Animation" id=7]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -110,8 +110,8 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "idlebackdefault"
+[sub_resource type="Animation" id=33]
+resource_name = "idlebackbiggun"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -123,7 +123,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 2, 3 ]
+"values": [ 8, 9 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -138,11 +138,58 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1 ]
+"values": [ 2, 3 ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "idlefrontbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 16, 17 ]
 }
 
 [sub_resource type="Animation" id=9]
-resource_name = "walkdowndefault"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=35]
+resource_name = "idlerightbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 12, 13 ]
+}
+
+[sub_resource type="Animation" id=36]
+resource_name = "walkdownbiggun"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -154,11 +201,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 16 ]
 }
 
 [sub_resource type="Animation" id=10]
-resource_name = "walkrightdefault"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -173,8 +219,54 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Animation" id=37]
+resource_name = "walkrightbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 12 ]
+}
+
 [sub_resource type="Animation" id=11]
-resource_name = "walkupdefault"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=38]
+resource_name = "walkupbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 14 ]
+}
+
+[sub_resource type="Animation" id=12]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -187,22 +279,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 2 ]
-}
-
-[sub_resource type="Animation" id=12]
-resource_name = "idleback"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("HeadSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 2, 3 ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -217,10 +293,41 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1 ]
+"values": [ 2, 3 ]
 }
 
 [sub_resource type="Animation" id=14]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeadSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=45]
+resource_name = "idleright"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeadSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=15]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("HeadSprite:frame")
@@ -235,8 +342,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=15]
-resource_name = "walkup"
+[sub_resource type="Animation" id=16]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("HeadSprite:frame")
@@ -251,8 +357,7 @@ tracks/0/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=16]
-resource_name = "idleback"
+[sub_resource type="Animation" id=17]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("LowerBodySprite:frame")
@@ -267,7 +372,7 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=18]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("LowerBodySprite:frame")
@@ -282,7 +387,23 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=46]
+resource_name = "idleright"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("LowerBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=19]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -298,7 +419,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=20]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -314,7 +435,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10 ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=21]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -330,8 +451,8 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=21]
-resource_name = "idlebackdefault"
+[sub_resource type="Animation" id=42]
+resource_name = "idlebackbiggun"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -343,7 +464,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 2, 3 ]
+"values": [ 14, 15 ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -358,11 +479,58 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1 ]
+"values": [ 2, 3 ]
+}
+
+[sub_resource type="Animation" id=43]
+resource_name = "idlefrontbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 16, 17 ]
 }
 
 [sub_resource type="Animation" id=23]
-resource_name = "walkdowndefault"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "idlerightbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 12, 13 ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "walkdownbiggun"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -374,7 +542,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 16 ]
 }
 
 [sub_resource type="Animation" id=24]
@@ -392,7 +560,54 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Animation" id=40]
+resource_name = "walkrightbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 12 ]
+}
+
 [sub_resource type="Animation" id=25]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=41]
+resource_name = "walkupbiggun"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 14 ]
+}
+
+[sub_resource type="Animation" id=26]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -407,8 +622,7 @@ tracks/0/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=26]
-resource_name = "idleback"
+[sub_resource type="Animation" id=27]
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
 tracks/0/interp = 1
@@ -422,8 +636,7 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="Animation" id=27]
-resource_name = "idlefront"
+[sub_resource type="Animation" id=28]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -438,8 +651,7 @@ tracks/0/keys = {
 "values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=28]
-resource_name = "idleright"
+[sub_resource type="Animation" id=29]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -454,8 +666,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=29]
-resource_name = "walkdown"
+[sub_resource type="Animation" id=30]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -470,8 +681,7 @@ tracks/0/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=30]
-resource_name = "walkright"
+[sub_resource type="Animation" id=31]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -486,8 +696,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=31]
-resource_name = "walkup"
+[sub_resource type="Animation" id=32]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -512,6 +721,7 @@ position = Vector2( 0, 0.9 )
 shape = SubResource( 1 )
 
 [node name="BaseLowerBodySprite" type="Sprite" parent="."]
+texture = ExtResource( 11 )
 vframes = 4
 hframes = 4
 frame = 1
@@ -520,63 +730,93 @@ frame = 1
 playback_speed = 4.0
 anims/idleback = SubResource( 2 )
 anims/idlefront = SubResource( 3 )
-anims/idleright = SubResource( 32 )
-anims/walkdown = SubResource( 4 )
-anims/walkright = SubResource( 5 )
-anims/walkup = SubResource( 6 )
+anims/idleright = SubResource( 4 )
+anims/walkdown = SubResource( 5 )
+anims/walkright = SubResource( 6 )
+anims/walkup = SubResource( 7 )
 
 [node name="BaseUpperBodySprite" type="Sprite" parent="."]
 modulate = Color( 0.368627, 0.184314, 0.113725, 1 )
 texture = ExtResource( 7 )
 vframes = 4
 hframes = 6
-frame = 2
+frame = 13
 
 [node name="BaseUpperBodyAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/idlebackdefault = SubResource( 7 )
-anims/idlefrontdefault = SubResource( 8 )
-anims/walkdowndefault = SubResource( 9 )
-anims/walkrightdefault = SubResource( 10 )
-anims/walkupdefault = SubResource( 11 )
+anims/idlebackbiggun = SubResource( 33 )
+anims/idlebackdefault = SubResource( 8 )
+anims/idlefrontbiggun = SubResource( 34 )
+anims/idlefrontdefault = SubResource( 9 )
+anims/idlerightbiggun = SubResource( 35 )
+anims/walkdownbiggun = SubResource( 36 )
+anims/walkdowndefault = SubResource( 10 )
+anims/walkrightbiggun = SubResource( 37 )
+anims/walkrightdefault = SubResource( 11 )
+anims/walkupbiggun = SubResource( 38 )
+anims/walkupdefault = SubResource( 12 )
 
 [node name="HeadSprite" type="Sprite" parent="."]
+texture = ExtResource( 10 )
 vframes = 2
 hframes = 2
-frame = 2
+frame = 1
 
 [node name="HeadAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/idleback = SubResource( 12 )
-anims/idlefront = SubResource( 13 )
-anims/walkright = SubResource( 14 )
-anims/walkup = SubResource( 15 )
+anims/idleback = SubResource( 13 )
+anims/idlefront = SubResource( 14 )
+anims/idleright = SubResource( 45 )
+anims/walkright = SubResource( 15 )
+anims/walkup = SubResource( 16 )
 
 [node name="LowerBodySprite" type="Sprite" parent="."]
+texture = ExtResource( 11 )
 vframes = 4
 hframes = 4
-frame = 2
+frame = 1
 
 [node name="LowerBodyAnim" type="AnimationPlayer" parent="."]
 playback_speed = 4.0
-anims/idleback = SubResource( 16 )
-anims/idlefront = SubResource( 17 )
-anims/walkdown = SubResource( 18 )
-anims/walkright = SubResource( 19 )
-anims/walkup = SubResource( 20 )
+anims/idleback = SubResource( 17 )
+anims/idlefront = SubResource( 18 )
+anims/idleright = SubResource( 46 )
+anims/walkdown = SubResource( 19 )
+anims/walkright = SubResource( 20 )
+anims/walkup = SubResource( 21 )
 
 [node name="UpperBodySprite" type="Sprite" parent="."]
+texture = ExtResource( 9 )
 vframes = 4
 hframes = 6
-frame = 2
+frame = 1
 
 [node name="UpperBodyAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/idlebackdefault = SubResource( 21 )
-anims/idlefrontdefault = SubResource( 22 )
-anims/walkdowndefault = SubResource( 23 )
-anims/walkrightdefault = SubResource( 24 )
-anims/walkupdefault = SubResource( 25 )
+anims/idlebackbiggun = SubResource( 42 )
+anims/idlebackdefault = SubResource( 22 )
+anims/idlefrontbiggun = SubResource( 43 )
+anims/idlefrontdefault = SubResource( 23 )
+anims/idlerightbiggun = SubResource( 44 )
+anims/walkdownbiggun = SubResource( 39 )
+anims/walkdowndefault = SubResource( 24 )
+anims/walkrightbiggun = SubResource( 40 )
+anims/walkrightdefault = SubResource( 25 )
+anims/walkupbiggun = SubResource( 41 )
+anims/walkupdefault = SubResource( 26 )
+
+[node name="GunSprite" type="Sprite" parent="."]
+hframes = 6
+frame = 3
+
+[node name="GunAnim" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/idleback = SubResource( 27 )
+anims/idlefront = SubResource( 28 )
+anims/idleright = SubResource( 29 )
+anims/walkdown = SubResource( 30 )
+anims/walkright = SubResource( 31 )
+anims/walkup = SubResource( 32 )
 
 [node name="ColorPicker" type="ColorPicker" parent="."]
 visible = false
@@ -616,19 +856,5 @@ texture_hover = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="GunSprite" type="Sprite" parent="."]
-texture = ExtResource( 8 )
-hframes = 6
-frame = 2
-
-[node name="GunAnim" type="AnimationPlayer" parent="."]
-playback_speed = 2.0
-anims/idleback = SubResource( 26 )
-anims/idlefront = SubResource( 27 )
-anims/idleright = SubResource( 28 )
-anims/walkdown = SubResource( 29 )
-anims/walkright = SubResource( 30 )
-anims/walkup = SubResource( 31 )
 [connection signal="pressed" from="ButtonRight" to="." method="_on_right_button_pressed"]
 [connection signal="pressed" from="ButtonLeft" to="." method="_on_button_left_pressed"]

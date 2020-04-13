@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jacketnosleeves.png-898ec5956e370788d3f3857248b6f859.stex"
+path="res://.import/cloth0.png-2b32335116639502439268bf7e4c492a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/UpperBody/jacketnosleeves.png"
-dest_files=[ "res://.import/jacketnosleeves.png-898ec5956e370788d3f3857248b6f859.stex" ]
+source_file="res://Textures/LowerBody/cloth0.png"
+dest_files=[ "res://.import/cloth0.png-2b32335116639502439268bf7e4c492a.stex" ]
 
 [params]
 
