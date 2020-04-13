@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/uzi.png-94d3cca949ecac3097172eb27d509a0b.stex"
+path="res://.import/3.png-17eb2c5d57885f33bc47168b3899ddad.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Guns/uzi.png"
-dest_files=[ "res://.import/uzi.png-94d3cca949ecac3097172eb27d509a0b.stex" ]
+source_file="res://Textures/Guns/3.png"
+dest_files=[ "res://.import/3.png-17eb2c5d57885f33bc47168b3899ddad.stex" ]
 
 [params]
 

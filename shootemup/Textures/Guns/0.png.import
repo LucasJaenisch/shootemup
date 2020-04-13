@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/magnun.png-d01e44f5720edb12b9e2dab2799f8159.stex"
+path="res://.import/0.png-1327f63db65c619cf31389d860af4784.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Guns/magnun.png"
-dest_files=[ "res://.import/magnun.png-d01e44f5720edb12b9e2dab2799f8159.stex" ]
+source_file="res://Textures/Guns/0.png"
+dest_files=[ "res://.import/0.png-1327f63db65c619cf31389d860af4784.stex" ]
 
 [params]
 

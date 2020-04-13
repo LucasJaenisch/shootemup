@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/nogun.png-ac282a94acf8515d79b69d3041e3d4e3.stex"
+path="res://.import/2.png-3f863bf166c4ef8046aae82de5a6cdc8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Guns/nogun.png"
-dest_files=[ "res://.import/nogun.png-ac282a94acf8515d79b69d3041e3d4e3.stex" ]
+source_file="res://Textures/Guns/2.png"
+dest_files=[ "res://.import/2.png-3f863bf166c4ef8046aae82de5a6cdc8.stex" ]
 
 [params]
 

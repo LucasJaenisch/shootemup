@@ -3,7 +3,7 @@ extends Node2D
 var speed = 100
 var velocity = Vector2()
 var lastdirection = Vector2()
-var guntype = "default"
+var guntype = 0
 
 var bodycolor = Vector3()
 var haircolor = Vector3()
@@ -15,7 +15,7 @@ var upperbodysprite = "res://Textures/UpperBody/cloth0.png"
 var baseupperbodysprite = "res://Textures/Base/upperbodyatlas.png"
 var lowerbodysprite = "res://Textures/LowerBody/cloth0.png"
 var baseloweboddysprite = "res://Textures/Base/lowerbodyatlas.png"
-var gunsprite = "res://Textures/Guns/shotgun.png"
+var gunsprite = "res://Textures/Guns/nogun.png"
 
 var heads = []
 var lowerboddies = []
@@ -42,6 +42,13 @@ func _ready():
 func _process(delta):
 	_open_wardrobe()
 	_move_and_animate(delta)
+	if Input.is_action_just_pressed("ui_focus_next"):
+		if guntype < guns.size() -1:
+			guntype += 1
+		else:
+			guntype = 0
+		$GunSprite.texture = load("Textures/Guns/" + guns[guntype])
+		print(guns[guntype])
 	
 func _open_wardrobe():
 	if Input.is_action_just_pressed("ui_accept"):
@@ -142,8 +149,8 @@ func _move_and_animate(delta):
 	position += velocity * delta
 
 func _animate(animationname):
-	$UpperBodyAnim.play(animationname + guntype)
-	$BaseUpperBodyAnim.play(animationname + guntype)
+	$UpperBodyAnim.play(animationname + str(guntype))
+	$BaseUpperBodyAnim.play(animationname + str(guntype))
 	$HeadAnim.play(animationname)
 	$BaseLowerBodyAnim.play(animationname)
 	$LowerBodyAnim.play(animationname)
