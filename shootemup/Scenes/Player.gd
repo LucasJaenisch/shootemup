@@ -67,6 +67,10 @@ func _open_wardrobe():
 func _dress_and_paint():
 	if Input.is_action_pressed("mouse_left"):
 		colorpickerselection = $ColorPicker.color
+		if $ButtonRight.rect_position.y == -24:
+			bodycolor = colorpickerselection
+			$BaseUpperBodySprite.modulate = bodycolor
+			$BaseLowerBodySprite.modulate = bodycolor
 		if $ButtonRight.rect_position.y == -14 :
 			headcolor = colorpickerselection
 			$HeadSprite.modulate = headcolor
@@ -76,10 +80,6 @@ func _dress_and_paint():
 		if $ButtonRight.rect_position.y == 6 :
 			lowerbodycolor = colorpickerselection
 			$LowerBodySprite.modulate = lowerbodycolor
-		if $ButtonRight.rect_position.y == -24:
-			bodycolor = colorpickerselection
-			$BaseUpperBodySprite.modulate = bodycolor
-			$BaseLowerBodySprite.modulate = bodycolor
 	
 	if Input.is_action_just_pressed("ui_right"):
 		$ButtonRight.emit_signal("pressed")
