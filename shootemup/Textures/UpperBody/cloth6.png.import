@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shorts.png-4856e2423222470e0dc9da019ad73214.stex"
+path="res://.import/cloth6.png-9c709e9216e0ce2699044772e9e19bf2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/LowerBody/shorts.png"
-dest_files=[ "res://.import/shorts.png-4856e2423222470e0dc9da019ad73214.stex" ]
+source_file="res://Textures/UpperBody/cloth6.png"
+dest_files=[ "res://.import/cloth6.png-9c709e9216e0ce2699044772e9e19bf2.stex" ]
 
 [params]
 

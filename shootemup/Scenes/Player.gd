@@ -5,16 +5,17 @@ var velocity = Vector2()
 var lastdirection = Vector2()
 var guntype = 0
 
-var bodycolor = Vector3()
-var haircolor = Vector3()
-var upperbodycolor = Vector3()
-var lowerbodycolor = Vector3()
+var bodycolor = Color(1,1,1)
+var headcolor = Color(1,1,1)
+var upperbodycolor = Color(1,1,1)
+var lowerbodycolor = Color(1,1,1)
+var colorpickerselection = Color(1,1,1)
 
 var headsprite  = "res://Textures/Head/hair0.png"
 var upperbodysprite = "res://Textures/UpperBody/cloth0.png"
 var baseupperbodysprite = "res://Textures/Base/upperbodyatlas.png"
 var lowerbodysprite = "res://Textures/LowerBody/cloth0.png"
-var baseloweboddysprite = "res://Textures/Base/lowerbodyatlas.png"
+var baselowerboddysprite = "res://Textures/Base/lowerbodyatlas.png"
 var gunsprite = "res://Textures/Guns/nogun.png"
 
 var heads = []
@@ -28,6 +29,7 @@ var upperbodiespos = 0
 var gunspos = 0
 
 func _ready():
+	randomize()
 	$ButtonLeft.hide()
 	$ButtonRight.hide()
 	$ColorPicker.hide()
@@ -35,20 +37,22 @@ func _ready():
 	lowerboddies =  _list_files_in_directory("res://Textures/LowerBody")
 	upperbodies =  _list_files_in_directory("res://Textures/UpperBody")
 	guns = _list_files_in_directory(("res://Textures/Guns"))
-	randomize()
-	_load_sprites(headsprite, upperbodysprite, baseupperbodysprite, lowerbodysprite, baseloweboddysprite, gunsprite)
-	_colorize()
+	_load_sprites()
 	
 func _process(delta):
 	_open_wardrobe()
 	_move_and_animate(delta)
+	
+	if Input.is_action_just_pressed("mouse_right"):
+		_randomize_character()
+		pass
+	
 	if Input.is_action_just_pressed("ui_focus_next"):
-		if guntype < guns.size() -1:
-			guntype += 1
+		if guntype == 0:
+			guntype = 2
 		else:
 			guntype = 0
 		$GunSprite.texture = load("Textures/Guns/" + guns[guntype])
-		print(guns[guntype])
 	
 func _open_wardrobe():
 	if Input.is_action_just_pressed("ui_accept"):
@@ -61,12 +65,21 @@ func _open_wardrobe():
 		_dress_and_paint()
 	
 func _dress_and_paint():
-	$BaseUpperBodySprite.modulate = Color(bodycolor.x, bodycolor.y, bodycolor.z)
-	$BaseLowerBodySprite.modulate = Color(bodycolor.x, bodycolor.y, bodycolor.z)
 	if Input.is_action_pressed("mouse_left"):
-		bodycolor.x = $ColorPicker.color.r
-		bodycolor.y = $ColorPicker.color.g
-		bodycolor.z = $ColorPicker.color.b
+		colorpickerselection = $ColorPicker.color
+		if $ButtonRight.rect_position.y == -14 :
+			headcolor = colorpickerselection
+			$HeadSprite.modulate = headcolor
+		if $ButtonRight.rect_position.y == -4 :
+			upperbodycolor = colorpickerselection
+			$UpperBodySprite.modulate = upperbodycolor
+		if $ButtonRight.rect_position.y == 6 :
+			lowerbodycolor = colorpickerselection
+			$LowerBodySprite.modulate = lowerbodycolor
+		if $ButtonRight.rect_position.y == -24:
+			bodycolor = colorpickerselection
+			$BaseUpperBodySprite.modulate = bodycolor
+			$BaseLowerBodySprite.modulate = bodycolor
 	
 	if Input.is_action_just_pressed("ui_right"):
 		$ButtonRight.emit_signal("pressed")
@@ -79,37 +92,35 @@ func _dress_and_paint():
 			$ButtonRight.rect_position.y += 10
 			$ButtonLeft.rect_position.y += 10
 		else:
-			$ButtonRight.rect_position.y = -14
-			$ButtonLeft.rect_position.y = -14
+			$ButtonRight.rect_position.y = -24
+			$ButtonLeft.rect_position.y = -24
 			
 	if Input.is_action_just_pressed("ui_up"):
-		if $ButtonRight.rect_position.y > -14 :
+		if $ButtonRight.rect_position.y > -24 :
 			$ButtonRight.rect_position.y -= 10
 			$ButtonLeft.rect_position.y -= 10
 		else:
 			$ButtonRight.rect_position.y = 6
 			$ButtonLeft.rect_position.y = 6
+
+func _randomize_character():
+	$HeadSprite.texture = load("res://Textures/Head/" + heads[int(rand_range(0,heads.size() - 1))])
+	$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upperbodies[int(rand_range(0,upperbodies.size() - 1))])
+	$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lowerboddies[int(rand_range(0,lowerboddies.size() - 1))])
+	$HeadSprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	$UpperBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	$LowerBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	bodycolor = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	$BaseLowerBodySprite.modulate = bodycolor
+	$BaseUpperBodySprite.modulate = bodycolor
 	
-
-func _load_sprites(head, upperbody, baseupperbody, lowerbody, baselowerbody, gun):
-	$HeadSprite.texture = load(head)
-	$UpperBodySprite.texture = load(upperbody)
-	$BaseUpperBodySprite.texture = load(baseupperbody)
-	$LowerBodySprite.texture = load(lowerbody)
-	$BaseLowerBodySprite.texture = load(baselowerbody)
-	$GunSprite.texture = load(gun)
-
-func _colorize():
-	if  randf ( ) > 0.5:
-		$BaseUpperBodySprite.modulate = Color(0.37, 0.18, 0.11)
-		$BaseLowerBodySprite.modulate = Color(0.37, 0.18, 0.11)
-	else:
-		$BaseUpperBodySprite.modulate = Color(0.8, 0.58, 0.53)
-		$BaseLowerBodySprite.modulate = Color(0.8, 0.58, 0.53)
-		
-	bodycolor.x = $BaseUpperBodySprite.modulate.r
-	bodycolor.y = $BaseUpperBodySprite.modulate.g
-	bodycolor.z = $BaseUpperBodySprite.modulate.b
+func _load_sprites():
+	$HeadSprite.texture = load(headsprite)
+	$UpperBodySprite.texture = load(upperbodysprite)
+	$BaseUpperBodySprite.texture = load(baseupperbodysprite)
+	$LowerBodySprite.texture = load(lowerbodysprite)
+	$BaseLowerBodySprite.texture = load(baselowerboddysprite)
+	$GunSprite.texture = load(gunsprite)
 
 func _move_and_animate(delta):
 	velocity = Vector2(0,0)
@@ -127,7 +138,7 @@ func _move_and_animate(delta):
 		velocity = velocity.normalized() * speed
 		
 	if velocity.x != 0:
-		_animate("walkright")
+		_play_animation("walkright")
 		$BaseUpperBodySprite.flip_h = velocity.x < 0
 		$UpperBodySprite.flip_h = velocity.x < 0
 		$HeadSprite.flip_h = velocity.x < 0
@@ -135,20 +146,20 @@ func _move_and_animate(delta):
 		$LowerBodySprite.flip_h = velocity.x < 0
 		$GunSprite.flip_h = velocity.x < 0
 	elif velocity.y > 0:
-		_animate("walkdown")
+		_play_animation("walkdown")
 	elif velocity.y < 0:
-		_animate("walkup")
+		_play_animation("walkup")
 	else:
 		if lastdirection.y < 0:
-			_animate("idleback")
+			_play_animation("idleback")
 		elif lastdirection.y > 0:
-			_animate("idlefront")
+			_play_animation("idlefront")
 		elif lastdirection.x != 0:
-			_animate("idleright")
+			_play_animation("idleright")
 	
 	position += velocity * delta
 
-func _animate(animationname):
+func _play_animation(animationname):
 	$UpperBodyAnim.play(animationname + str(guntype))
 	$BaseUpperBodyAnim.play(animationname + str(guntype))
 	$HeadAnim.play(animationname)
@@ -185,7 +196,7 @@ func _on_right_button_pressed():
 		else:
 			upperbodiespos = 0
 		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upperbodies[upperbodiespos])
-	else:
+	elif $ButtonRight.rect_position.y == 6:
 		if lowerboddiespos < lowerboddies.size() -1 :
 			lowerboddiespos += 1
 		else:
@@ -205,7 +216,7 @@ func _on_button_left_pressed():
 		else:
 			upperbodiespos = upperbodies.size() -1
 		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upperbodies[upperbodiespos])
-	else:
+	elif $ButtonRight.rect_position.y == 6:
 		if lowerboddiespos > -1 :
 			lowerboddiespos -= 1
 		else:
