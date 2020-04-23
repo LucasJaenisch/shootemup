@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://UI/littlearrow.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Weapon_Shotgun.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sounds/shotgun.wav" type="AudioStream" id=7]
 [ext_resource path="res://UI/littlearrowhoverleft.png" type="Texture" id=8]
 [ext_resource path="res://Textures/Guns/0.png" type="Texture" id=9]
+[ext_resource path="res://Sounds/uzi.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.09367, 15.0005 )
@@ -843,7 +844,6 @@ hframes = 6
 [node name="Gun_Fire_Points" type="Node2D" parent="GunSprite"]
 
 [node name="Shotgun_Point" type="Position2D" parent="GunSprite/Gun_Fire_Points"]
-position = Vector2( 0, -5 )
 script = ExtResource( 2 )
 
 [node name="Shotgun_Sound" type="AudioStreamPlayer2D" parent="GunSprite/Gun_Fire_Points/Shotgun_Point"]
@@ -853,6 +853,11 @@ volume_db = -20.0
 
 [node name="Uzi_Point" type="Position2D" parent="GunSprite/Gun_Fire_Points"]
 visible = false
+
+[node name="Uzi_Sound" type="AudioStreamPlayer2D" parent="GunSprite/Gun_Fire_Points/Uzi_Point"]
+position = Vector2( -2.7354, -4.49858 )
+stream = ExtResource( 10 )
+volume_db = -20.0
 
 [node name="GunAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
