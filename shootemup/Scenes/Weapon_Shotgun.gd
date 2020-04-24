@@ -28,6 +28,7 @@ func fire_weapon(direction):
 	var clone1 = bullet_scene.instance()
 	var clone2 = bullet_scene.instance()
 	var scene_root = get_tree().root.get_children()[0]
+	
 	scene_root.add_child(clone0)
 	scene_root.add_child(clone1)
 	scene_root.add_child(clone2)

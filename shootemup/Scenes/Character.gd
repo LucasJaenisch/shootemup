@@ -34,6 +34,7 @@ var lower_boddies_pos = 0
 var upper_bodies_pos = 0
 var guns_pos = 0
 
+
 func _ready():
 	randomize()
 	$ButtonLeft.hide()
@@ -56,12 +57,12 @@ func _process(delta):
 		gun_type += 1
 		if gun_type == guns.size():
 			gun_type = 0
-		print(gun_type)
-		print(head_sprite)
 		load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, load("res://Textures/Guns/" + guns[gun_type]))
-		#$GunSprite.texture = load("Textures/Guns/" + guns[gun_type])
+		# Calling the animations right here forces the loading to syncronize
+		aim_animation("idleback")
+		aim_animation("idleright")
+		$Change_Guns.play()
 		
-	
 func open_wardrobe():
 	if Input.is_action_just_pressed("ui_accept"):
 		$ButtonRight.visible = ! $ButtonRight.visible
@@ -125,7 +126,9 @@ func randomize_character():
 		body_color = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
 		$BaseLowerBodySprite.modulate = body_color
 		$BaseUpperBodySprite.modulate = body_color
+		$Change_Clothes.play()
 	
+# Puts a LOADED texture in the sprites texture
 func load_sprites(head, upper, base_upper, lower, base_lower, gun):
 	$HeadSprite.texture = head
 	$UpperBodySprite.texture = upper
@@ -257,6 +260,7 @@ func _on_right_button_pressed():
 			lower_boddies_pos = 0
 		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
 		$LowerBodySprite.texture = lower_body_sprite
+	$Change_Clothes.play()
 
 func _on_button_left_pressed():
 	if $ButtonRight.rect_position.y == -14:
@@ -267,16 +271,24 @@ func _on_button_left_pressed():
 		head_sprite = load("res://Textures/Head/" + heads[heads_pos])
 		$HeadSprite.texture = head_sprite
 	elif $ButtonRight.rect_position.y == -4:
-		if upper_bodies_pos > -1 :
+		if upper_bodies_pos > 0 :
 			upper_bodies_pos -= 1
 		else:
 			upper_bodies_pos = upper_bodies.size() -1
 		upper_body_sprite = load("res://Textures/UpperBody/" + upper_bodies[upper_bodies_pos])
 		$UpperBodySprite.texture = upper_body_sprite
 	elif $ButtonRight.rect_position.y == 6:
-		if lower_boddies_pos > -1 :
+		if lower_boddies_pos > 0 :
 			lower_boddies_pos -= 1
 		else:
 			lower_boddies_pos = lower_boddies.size() -1
 		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
 		$LowerBodySprite.texture = lower_body_sprite
+	$Change_Clothes.play()
+
+
+func _on_RigidBody2D_body_entered(body):
+	$RigidBody2D/Collision.disabled = true
+	hide()
+	emit_signal("hit")
+	print("ouch")

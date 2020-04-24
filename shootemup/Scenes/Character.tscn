@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://UI/littlearrow.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Weapon_Shotgun.gd" type="Script" id=2]
@@ -8,11 +8,12 @@
 [ext_resource path="res://UI/littlearrowleft.png" type="Texture" id=6]
 [ext_resource path="res://Sounds/shotgun.wav" type="AudioStream" id=7]
 [ext_resource path="res://UI/littlearrowhoverleft.png" type="Texture" id=8]
+[ext_resource path="res://Sounds/change_clothes.wav" type="AudioStream" id=9]
 [ext_resource path="res://Sounds/uzi.wav" type="AudioStream" id=10]
-[ext_resource path="res://Textures/Base/upperbodyatlas.png" type="Texture" id=11]
+[ext_resource path="res://Sounds/reload.wav" type="AudioStream" id=11]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5.09367, 15.0005 )
+[sub_resource type="RectangleShape2D" id=62]
+extents = Vector2( 5.0788, 9.47836 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "idleback"
@@ -157,7 +158,7 @@ tracks/0/keys = {
 "values": [ 14, 15 ]
 }
 
-[sub_resource type="Animation" id=53]
+[sub_resource type="Animation" id=11]
 resource_name = "idleback3"
 loop = true
 tracks/0/type = "value"
@@ -173,7 +174,7 @@ tracks/0/keys = {
 "values": [ 20, 21 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -188,8 +189,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "idlefront1"
+[sub_resource type="Animation" id=13]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -204,7 +204,7 @@ tracks/0/keys = {
 "values": [ 10, 11 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -219,7 +219,7 @@ tracks/0/keys = {
 "values": [ 16, 17 ]
 }
 
-[sub_resource type="Animation" id=54]
+[sub_resource type="Animation" id=15]
 resource_name = "idlefront3"
 loop = true
 tracks/0/type = "value"
@@ -235,7 +235,7 @@ tracks/0/keys = {
 "values": [ 22, 23 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=16]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -250,8 +250,7 @@ tracks/0/keys = {
 "values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=15]
-resource_name = "idleright1"
+[sub_resource type="Animation" id=17]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -266,7 +265,7 @@ tracks/0/keys = {
 "values": [ 6, 7 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=18]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BaseUpperBodySprite:frame")
@@ -281,7 +280,7 @@ tracks/0/keys = {
 "values": [ 12, 13 ]
 }
 
-[sub_resource type="Animation" id=55]
+[sub_resource type="Animation" id=19]
 resource_name = "idleright3"
 loop = true
 tracks/0/type = "value"
@@ -297,51 +296,6 @@ tracks/0/keys = {
 "values": [ 18, 19 ]
 }
 
-[sub_resource type="Animation" id=17]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("BaseUpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=18]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("BaseUpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 16 ]
-}
-
-[sub_resource type="Animation" id=19]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("BaseUpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
 [sub_resource type="Animation" id=20]
 loop = true
 tracks/0/type = "value"
@@ -354,7 +308,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 12 ]
+"values": [ 0 ]
 }
 
 [sub_resource type="Animation" id=21]
@@ -369,7 +323,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 2 ]
+"values": [ 16 ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -384,10 +338,55 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 14 ]
+"values": [ 0 ]
 }
 
 [sub_resource type="Animation" id=23]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 12 ]
+}
+
+[sub_resource type="Animation" id=24]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=25]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BaseUpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 14 ]
+}
+
+[sub_resource type="Animation" id=26]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("LowerBodySprite:frame")
@@ -402,7 +401,7 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=27]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("LowerBodySprite:frame")
@@ -417,7 +416,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=28]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("LowerBodySprite:frame")
@@ -432,7 +431,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=29]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -448,7 +447,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=30]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -464,7 +463,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10 ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=31]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -480,7 +479,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=32]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -495,7 +494,7 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="Animation" id=56]
+[sub_resource type="Animation" id=33]
 resource_name = "idleback1"
 loop = true
 tracks/0/type = "value"
@@ -511,7 +510,7 @@ tracks/0/keys = {
 "values": [ 8, 9 ]
 }
 
-[sub_resource type="Animation" id=30]
+[sub_resource type="Animation" id=34]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -526,7 +525,7 @@ tracks/0/keys = {
 "values": [ 14, 15 ]
 }
 
-[sub_resource type="Animation" id=57]
+[sub_resource type="Animation" id=35]
 resource_name = "idleback3"
 loop = true
 tracks/0/type = "value"
@@ -542,7 +541,7 @@ tracks/0/keys = {
 "values": [ 20, 21 ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=36]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -557,7 +556,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=58]
+[sub_resource type="Animation" id=37]
 resource_name = "idlefront1"
 loop = true
 tracks/0/type = "value"
@@ -573,7 +572,7 @@ tracks/0/keys = {
 "values": [ 10, 11 ]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=38]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -588,7 +587,7 @@ tracks/0/keys = {
 "values": [ 16, 17 ]
 }
 
-[sub_resource type="Animation" id=59]
+[sub_resource type="Animation" id=39]
 resource_name = "idlefront3"
 loop = true
 tracks/0/type = "value"
@@ -604,7 +603,7 @@ tracks/0/keys = {
 "values": [ 22, 23 ]
 }
 
-[sub_resource type="Animation" id=33]
+[sub_resource type="Animation" id=40]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -619,7 +618,7 @@ tracks/0/keys = {
 "values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=60]
+[sub_resource type="Animation" id=41]
 resource_name = "idleright1"
 loop = true
 tracks/0/type = "value"
@@ -635,7 +634,7 @@ tracks/0/keys = {
 "values": [ 6, 7 ]
 }
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=42]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UpperBodySprite:frame")
@@ -650,7 +649,7 @@ tracks/0/keys = {
 "values": [ 12, 13 ]
 }
 
-[sub_resource type="Animation" id=61]
+[sub_resource type="Animation" id=43]
 resource_name = "idleright3"
 loop = true
 tracks/0/type = "value"
@@ -666,145 +665,10 @@ tracks/0/keys = {
 "values": [ 18, 19 ]
 }
 
-[sub_resource type="Animation" id=35]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("UpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=36]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("UpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 16 ]
-}
-
-[sub_resource type="Animation" id=37]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("UpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=38]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("UpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 12 ]
-}
-
-[sub_resource type="Animation" id=39]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("UpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-
-[sub_resource type="Animation" id=40]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("UpperBodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 14 ]
-}
-
-[sub_resource type="Animation" id=41]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("HeadSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 2, 3 ]
-}
-
-[sub_resource type="Animation" id=42]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("HeadSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 0, 1 ]
-}
-
-[sub_resource type="Animation" id=43]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("HeadSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 0, 1 ]
-}
-
 [sub_resource type="Animation" id=44]
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("HeadSprite:frame")
+tracks/0/path = NodePath("UpperBodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -819,6 +683,126 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=45]
 loop = true
 tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 16 ]
+}
+
+[sub_resource type="Animation" id=46]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=47]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 12 ]
+}
+
+[sub_resource type="Animation" id=48]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=49]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpperBodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 14 ]
+}
+
+[sub_resource type="Animation" id=50]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeadSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 3 ]
+}
+
+[sub_resource type="Animation" id=51]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeadSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=52]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeadSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=53]
+loop = true
+tracks/0/type = "value"
 tracks/0/path = NodePath("HeadSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -831,7 +815,22 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=46]
+[sub_resource type="Animation" id=54]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeadSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=55]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("HeadSprite:frame")
@@ -846,7 +845,7 @@ tracks/0/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=47]
+[sub_resource type="Animation" id=56]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -861,7 +860,7 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="Animation" id=48]
+[sub_resource type="Animation" id=57]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -876,7 +875,7 @@ tracks/0/keys = {
 "values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=49]
+[sub_resource type="Animation" id=58]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -891,7 +890,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=50]
+[sub_resource type="Animation" id=59]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -906,7 +905,7 @@ tracks/0/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=51]
+[sub_resource type="Animation" id=60]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -921,7 +920,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=52]
+[sub_resource type="Animation" id=61]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunSprite:frame")
@@ -936,14 +935,11 @@ tracks/0/keys = {
 "values": [ 2 ]
 }
 
-[node name="Character" type="Node2D"]
+[node name="Character" type="Area2D"]
 script = ExtResource( 3 )
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2( 0, 0.9 )
-shape = SubResource( 1 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 62 )
 
 [node name="BaseLowerBodySprite" type="Sprite" parent="."]
 vframes = 4
@@ -959,31 +955,30 @@ anims/walkright = SubResource( 6 )
 anims/walkup = SubResource( 7 )
 
 [node name="BaseUpperBodySprite" type="Sprite" parent="."]
-texture = ExtResource( 11 )
 vframes = 4
 hframes = 6
-frame = 21
+frame = 2
 
 [node name="BaseUpperBodyAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
 anims/idleback0 = SubResource( 8 )
 anims/idleback1 = SubResource( 9 )
 anims/idleback2 = SubResource( 10 )
-anims/idleback3 = SubResource( 53 )
-anims/idlefront0 = SubResource( 11 )
-anims/idlefront1 = SubResource( 12 )
-anims/idlefront2 = SubResource( 13 )
-anims/idlefront3 = SubResource( 54 )
-anims/idleright0 = SubResource( 14 )
-anims/idleright1 = SubResource( 15 )
-anims/idleright2 = SubResource( 16 )
-anims/idleright3 = SubResource( 55 )
-anims/walkdown0 = SubResource( 17 )
-anims/walkdown2 = SubResource( 18 )
-anims/walkright0 = SubResource( 19 )
-anims/walkright2 = SubResource( 20 )
-anims/walkup0 = SubResource( 21 )
-anims/walkup2 = SubResource( 22 )
+anims/idleback3 = SubResource( 11 )
+anims/idlefront0 = SubResource( 12 )
+anims/idlefront1 = SubResource( 13 )
+anims/idlefront2 = SubResource( 14 )
+anims/idlefront3 = SubResource( 15 )
+anims/idleright0 = SubResource( 16 )
+anims/idleright1 = SubResource( 17 )
+anims/idleright2 = SubResource( 18 )
+anims/idleright3 = SubResource( 19 )
+anims/walkdown0 = SubResource( 20 )
+anims/walkdown2 = SubResource( 21 )
+anims/walkright0 = SubResource( 22 )
+anims/walkright2 = SubResource( 23 )
+anims/walkup0 = SubResource( 24 )
+anims/walkup2 = SubResource( 25 )
 
 [node name="LowerBodySprite" type="Sprite" parent="."]
 vframes = 4
@@ -992,39 +987,38 @@ frame = 3
 
 [node name="LowerBodyAnim" type="AnimationPlayer" parent="."]
 playback_speed = 4.0
-anims/idleback = SubResource( 23 )
-anims/idlefront = SubResource( 24 )
-anims/idleright = SubResource( 25 )
-anims/walkdown = SubResource( 26 )
-anims/walkright = SubResource( 27 )
-anims/walkup = SubResource( 28 )
+anims/idleback = SubResource( 26 )
+anims/idlefront = SubResource( 27 )
+anims/idleright = SubResource( 28 )
+anims/walkdown = SubResource( 29 )
+anims/walkright = SubResource( 30 )
+anims/walkup = SubResource( 31 )
 
 [node name="UpperBodySprite" type="Sprite" parent="."]
-texture = ExtResource( 11 )
 vframes = 4
 hframes = 6
-frame = 20
+frame = 21
 
 [node name="UpperBodyAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/idleback0 = SubResource( 29 )
-anims/idleback1 = SubResource( 56 )
-anims/idleback2 = SubResource( 30 )
-anims/idleback3 = SubResource( 57 )
-anims/idlefront0 = SubResource( 31 )
-anims/idlefront1 = SubResource( 58 )
-anims/idlefront2 = SubResource( 32 )
-anims/idlefront3 = SubResource( 59 )
-anims/idleright0 = SubResource( 33 )
-anims/idleright1 = SubResource( 60 )
-anims/idleright2 = SubResource( 34 )
-anims/idleright3 = SubResource( 61 )
-anims/walkdown0 = SubResource( 35 )
-anims/walkdown2 = SubResource( 36 )
-anims/walkright0 = SubResource( 37 )
-anims/walkright2 = SubResource( 38 )
-anims/walkup0 = SubResource( 39 )
-anims/walkup2 = SubResource( 40 )
+anims/idleback0 = SubResource( 32 )
+anims/idleback1 = SubResource( 33 )
+anims/idleback2 = SubResource( 34 )
+anims/idleback3 = SubResource( 35 )
+anims/idlefront0 = SubResource( 36 )
+anims/idlefront1 = SubResource( 37 )
+anims/idlefront2 = SubResource( 38 )
+anims/idlefront3 = SubResource( 39 )
+anims/idleright0 = SubResource( 40 )
+anims/idleright1 = SubResource( 41 )
+anims/idleright2 = SubResource( 42 )
+anims/idleright3 = SubResource( 43 )
+anims/walkdown0 = SubResource( 44 )
+anims/walkdown2 = SubResource( 45 )
+anims/walkright0 = SubResource( 46 )
+anims/walkright2 = SubResource( 47 )
+anims/walkup0 = SubResource( 48 )
+anims/walkup2 = SubResource( 49 )
 
 [node name="HeadSprite" type="Sprite" parent="."]
 vframes = 2
@@ -1033,12 +1027,12 @@ frame = 3
 
 [node name="HeadAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/idleback = SubResource( 41 )
-anims/idlefront = SubResource( 42 )
-anims/idleright = SubResource( 43 )
-anims/walkdown = SubResource( 44 )
-anims/walkright = SubResource( 45 )
-anims/walkup = SubResource( 46 )
+anims/idleback = SubResource( 50 )
+anims/idlefront = SubResource( 51 )
+anims/idleright = SubResource( 52 )
+anims/walkdown = SubResource( 53 )
+anims/walkright = SubResource( 54 )
+anims/walkup = SubResource( 55 )
 
 [node name="GunSprite" type="Sprite" parent="."]
 hframes = 6
@@ -1064,12 +1058,12 @@ volume_db = -20.0
 
 [node name="GunAnim" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/idleback = SubResource( 47 )
-anims/idlefront = SubResource( 48 )
-anims/idleright = SubResource( 49 )
-anims/walkdown = SubResource( 50 )
-anims/walkright = SubResource( 51 )
-anims/walkup = SubResource( 52 )
+anims/idleback = SubResource( 56 )
+anims/idlefront = SubResource( 57 )
+anims/idleright = SubResource( 58 )
+anims/walkdown = SubResource( 59 )
+anims/walkright = SubResource( 60 )
+anims/walkup = SubResource( 61 )
 
 [node name="ColorPicker" type="ColorPicker" parent="."]
 margin_left = 4.0
@@ -1109,5 +1103,11 @@ texture_hover = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Change_Clothes" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Change_Guns" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
 [connection signal="pressed" from="ButtonRight" to="." method="_on_right_button_pressed"]
 [connection signal="pressed" from="ButtonLeft" to="." method="_on_button_left_pressed"]
