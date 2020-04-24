@@ -15,12 +15,12 @@ var lower_body_color = Color(1,1,1)
 var color_picker_selection = Color(1,1,1)
 
 # Default Sprites Setup
-var head_sprite  = "res://Textures/Head/hair0.png"
-var upper_body_sprite = "res://Textures/UpperBody/cloth0.png"
-var base_upper_body_sprite = "res://Textures/Base/upperbodyatlas.png"
-var lower_body_sprite = "res://Textures/LowerBody/cloth0.png"
-var base_lower_boddy_sprite = "res://Textures/Base/lowerbodyatlas.png"
-var gun_sprite = "res://Textures/Guns/0.png"
+var head_sprite  = load("res://Textures/Head/hair0.png")
+var upper_body_sprite = load("res://Textures/UpperBody/cloth0.png")
+var base_upper_body_sprite = load("res://Textures/Base/upperbodyatlas.png")
+var lower_body_sprite = load("res://Textures/LowerBody/cloth0.png")
+var base_lower_boddy_sprite = load("res://Textures/Base/lowerbodyatlas.png")
+var gun_sprite = load("res://Textures/Guns/2.png")
 
 # Array for Each Assets
 var heads = []
@@ -43,7 +43,7 @@ func _ready():
 	lower_boddies =  _list_files_in_directory("res://Textures/LowerBody")
 	upper_bodies =  _list_files_in_directory("res://Textures/UpperBody")
 	guns = _list_files_in_directory(("res://Textures/Guns"))
-	load_sprites()
+	load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, gun_sprite)
 	
 func _process(delta):
 	open_wardrobe()
@@ -53,11 +53,14 @@ func _process(delta):
 	randomize_character()
 	
 	if Input.is_action_just_pressed("ui_focus_next"):
-		if gun_type == 0:
-			gun_type = 2
-		else:
+		gun_type += 1
+		if gun_type == guns.size():
 			gun_type = 0
-		$GunSprite.texture = load("Textures/Guns/" + guns[gun_type])
+		print(gun_type)
+		print(head_sprite)
+		load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, load("res://Textures/Guns/" + guns[gun_type]))
+		#$GunSprite.texture = load("Textures/Guns/" + guns[gun_type])
+		
 	
 func open_wardrobe():
 	if Input.is_action_just_pressed("ui_accept"):
@@ -110,9 +113,12 @@ func dress_and_paint():
 
 func randomize_character():
 	if Input.is_action_just_pressed("mouse_right"):
-		$HeadSprite.texture = load("res://Textures/Head/" + heads[int(rand_range(0,heads.size() - 1))])
-		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upper_bodies[int(rand_range(0,upper_bodies.size() - 1))])
-		$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lower_boddies[int(rand_range(0,lower_boddies.size() - 1))])
+		head_sprite = load("res://Textures/Head/" + heads[int(rand_range(0,heads.size() - 1))])
+		$HeadSprite.texture = head_sprite
+		upper_body_sprite = load("res://Textures/UpperBody/" + upper_bodies[int(rand_range(0,upper_bodies.size() - 1))])
+		$UpperBodySprite.texture = upper_body_sprite
+		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[int(rand_range(0,lower_boddies.size() - 1))])
+		$LowerBodySprite.texture = lower_body_sprite
 		$HeadSprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
 		$UpperBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
 		$LowerBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
@@ -120,13 +126,13 @@ func randomize_character():
 		$BaseLowerBodySprite.modulate = body_color
 		$BaseUpperBodySprite.modulate = body_color
 	
-func load_sprites():
-	$HeadSprite.texture = load(head_sprite)
-	$UpperBodySprite.texture = load(upper_body_sprite)
-	$BaseUpperBodySprite.texture = load(base_upper_body_sprite)
-	$LowerBodySprite.texture = load(lower_body_sprite)
-	$BaseLowerBodySprite.texture = load(base_lower_boddy_sprite)
-	$GunSprite.texture = load(gun_sprite)
+func load_sprites(head, upper, base_upper, lower, base_lower, gun):
+	$HeadSprite.texture = head
+	$UpperBodySprite.texture = upper
+	$BaseUpperBodySprite.texture = base_upper
+	$LowerBodySprite.texture = lower
+	$BaseLowerBodySprite.texture = base_lower
+	$GunSprite.texture = gun
 
 func shoot():
 	if Input.is_action_just_pressed("shoot_right"):
@@ -235,19 +241,22 @@ func _on_right_button_pressed():
 			heads_pos += 1
 		else:
 			heads_pos = 0
-		$HeadSprite.texture = load("res://Textures/Head/" + heads[heads_pos])
+		head_sprite = load("res://Textures/Head/" + heads[heads_pos])
+		$HeadSprite.texture = head_sprite
 	elif $ButtonRight.rect_position.y == -4:
 		if upper_bodies_pos < upper_bodies.size() -1 :
 			upper_bodies_pos += 1
 		else:
 			upper_bodies_pos = 0
-		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upper_bodies[upper_bodies_pos])
+		upper_body_sprite = load("res://Textures/UpperBody/" + upper_bodies[upper_bodies_pos])
+		$UpperBodySprite.texture = upper_body_sprite
 	elif $ButtonRight.rect_position.y == 6:
 		if lower_boddies_pos < lower_boddies.size() -1 :
 			lower_boddies_pos += 1
 		else:
 			lower_boddies_pos = 0
-		$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
+		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
+		$LowerBodySprite.texture = lower_body_sprite
 
 func _on_button_left_pressed():
 	if $ButtonRight.rect_position.y == -14:
@@ -255,16 +264,19 @@ func _on_button_left_pressed():
 			heads_pos -= 1
 		else:
 			heads_pos = heads.size() -1
-		$HeadSprite.texture = load("res://Textures/Head/" + heads[heads_pos])
+		head_sprite = load("res://Textures/Head/" + heads[heads_pos])
+		$HeadSprite.texture = head_sprite
 	elif $ButtonRight.rect_position.y == -4:
 		if upper_bodies_pos > -1 :
 			upper_bodies_pos -= 1
 		else:
 			upper_bodies_pos = upper_bodies.size() -1
-		$UpperBodySprite.texture = load("res://Textures/UpperBody/" + upper_bodies[upper_bodies_pos])
+		upper_body_sprite = load("res://Textures/UpperBody/" + upper_bodies[upper_bodies_pos])
+		$UpperBodySprite.texture = upper_body_sprite
 	elif $ButtonRight.rect_position.y == 6:
 		if lower_boddies_pos > -1 :
 			lower_boddies_pos -= 1
 		else:
 			lower_boddies_pos = lower_boddies.size() -1
-		$LowerBodySprite.texture = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
+		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
+		$LowerBodySprite.texture = lower_body_sprite
