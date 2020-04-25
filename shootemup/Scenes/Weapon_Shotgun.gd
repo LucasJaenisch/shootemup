@@ -7,7 +7,7 @@ var bullet_origin = Vector2()
 
 const AMMO_IN_MAG = 10
 
-const DAMAGE = 15
+const DAMAGE = 10
 
 const CAN_RELOAD = true
 const CAN_REFILL = true

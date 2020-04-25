@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 
 # Gameplay Variables
 var speed = 100
@@ -14,7 +14,7 @@ var upper_body_color = Color(1,1,1)
 var lower_body_color = Color(1,1,1)
 var color_picker_selection = Color(1,1,1)
 
-# Default Sprites Setup
+# Loads a Texture for Default 
 var head_sprite  = load("res://Textures/Head/hair0.png")
 var upper_body_sprite = load("res://Textures/UpperBody/cloth0.png")
 var base_upper_body_sprite = load("res://Textures/Base/upperbodyatlas.png")
@@ -34,17 +34,20 @@ var lower_boddies_pos = 0
 var upper_bodies_pos = 0
 var guns_pos = 0
 
-
 func _ready():
 	randomize()
 	$ButtonLeft.hide()
 	$ButtonRight.hide()
 	$ColorPicker.hide()
-	heads =  _list_files_in_directory("res://Textures/Head")
-	lower_boddies =  _list_files_in_directory("res://Textures/LowerBody")
-	upper_bodies =  _list_files_in_directory("res://Textures/UpperBody")
-	guns = _list_files_in_directory(("res://Textures/Guns"))
+	heads =  _list_files_in_directory("res://Textures/Head/")
+	lower_boddies =  _list_files_in_directory("res://Textures/LowerBody/")
+	upper_bodies =  _list_files_in_directory("res://Textures/UpperBody/")
+	guns = _list_files_in_directory(("res://Textures/Guns/"))
 	load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, gun_sprite)
+	if guns.size() > 0:
+		print("there is stuff")
+	else:
+		print("its empty")
 	
 func _process(delta):
 	open_wardrobe()
@@ -54,10 +57,12 @@ func _process(delta):
 	randomize_character()
 	
 	if Input.is_action_just_pressed("ui_focus_next"):
-		gun_type += 1
-		if gun_type == guns.size():
+		if gun_type + 1 == 4:
 			gun_type = 0
-		load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, load("res://Textures/Guns/" + guns[gun_type]))
+		else:
+			gun_type += 1
+		#print("res://Textures/Guns/" + guns[gun_type])
+		load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, load(guns[gun_type]))
 		# Calling the animations right here forces the loading to syncronize
 		aim_animation("idleback")
 		aim_animation("idleright")
@@ -114,11 +119,11 @@ func dress_and_paint():
 
 func randomize_character():
 	if Input.is_action_just_pressed("mouse_right"):
-		head_sprite = load("res://Textures/Head/" + heads[int(rand_range(0,heads.size() - 1))])
+		head_sprite = load(heads[int(rand_range(0,heads.size() - 1))])
 		$HeadSprite.texture = head_sprite
-		upper_body_sprite = load("res://Textures/UpperBody/" + upper_bodies[int(rand_range(0,upper_bodies.size() - 1))])
+		upper_body_sprite = load(upper_bodies[int(rand_range(0,upper_bodies.size() - 1))])
 		$UpperBodySprite.texture = upper_body_sprite
-		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[int(rand_range(0,lower_boddies.size() - 1))])
+		lower_body_sprite = load(lower_boddies[int(rand_range(0,lower_boddies.size() - 1))])
 		$LowerBodySprite.texture = lower_body_sprite
 		$HeadSprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
 		$UpperBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
@@ -222,18 +227,19 @@ func move_animation(animation_name):
 	$LowerBodyAnim.play(animation_name)
 
 func _list_files_in_directory(path):
-	# Returns an Array of Files with the .PNG extension from a Directory
+	# Returns an Array of Strings from the path of assets with .PNG extension from a Directory
 	var files = []
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
-
 	while true:
 		var file = dir.get_next()
 		if file == "":
 			break
-		elif file.ends_with(".png"):
-			files.append(file)
+		elif file.ends_with(".import"):
+			print(path + file)
+			#print(file)
+			files.append(path + file.replace(".import",""))
 	dir.list_dir_end()
 	
 	return files
@@ -244,21 +250,21 @@ func _on_right_button_pressed():
 			heads_pos += 1
 		else:
 			heads_pos = 0
-		head_sprite = load("res://Textures/Head/" + heads[heads_pos])
+		head_sprite = load(heads[heads_pos])
 		$HeadSprite.texture = head_sprite
 	elif $ButtonRight.rect_position.y == -4:
 		if upper_bodies_pos < upper_bodies.size() -1 :
 			upper_bodies_pos += 1
 		else:
 			upper_bodies_pos = 0
-		upper_body_sprite = load("res://Textures/UpperBody/" + upper_bodies[upper_bodies_pos])
+		upper_body_sprite = load(upper_bodies[upper_bodies_pos])
 		$UpperBodySprite.texture = upper_body_sprite
 	elif $ButtonRight.rect_position.y == 6:
 		if lower_boddies_pos < lower_boddies.size() -1 :
 			lower_boddies_pos += 1
 		else:
 			lower_boddies_pos = 0
-		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
+		lower_body_sprite = load(lower_boddies[lower_boddies_pos])
 		$LowerBodySprite.texture = lower_body_sprite
 	$Change_Clothes.play()
 
@@ -268,27 +274,21 @@ func _on_button_left_pressed():
 			heads_pos -= 1
 		else:
 			heads_pos = heads.size() -1
-		head_sprite = load("res://Textures/Head/" + heads[heads_pos])
+		head_sprite = load(heads[heads_pos])
 		$HeadSprite.texture = head_sprite
 	elif $ButtonRight.rect_position.y == -4:
 		if upper_bodies_pos > 0 :
 			upper_bodies_pos -= 1
 		else:
 			upper_bodies_pos = upper_bodies.size() -1
-		upper_body_sprite = load("res://Textures/UpperBody/" + upper_bodies[upper_bodies_pos])
+		upper_body_sprite = load(upper_bodies[upper_bodies_pos])
 		$UpperBodySprite.texture = upper_body_sprite
 	elif $ButtonRight.rect_position.y == 6:
 		if lower_boddies_pos > 0 :
 			lower_boddies_pos -= 1
 		else:
 			lower_boddies_pos = lower_boddies.size() -1
-		lower_body_sprite = load("res://Textures/LowerBody/" + lower_boddies[lower_boddies_pos])
+		lower_body_sprite = load(lower_boddies[lower_boddies_pos])
 		$LowerBodySprite.texture = lower_body_sprite
 	$Change_Clothes.play()
 
-
-func _on_RigidBody2D_body_entered(body):
-	$RigidBody2D/Collision.disabled = true
-	hide()
-	emit_signal("hit")
-	print("ouch")

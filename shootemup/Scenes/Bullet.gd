@@ -21,8 +21,8 @@ func _physics_process(delta):
 	if timer >= KILL_TIMER:
 		queue_free()
 
-
-
-func _on_Bullet_body_entered(body):
+func _on_Bullet_area_entered(area):
+	print("I ve hit an " + area.get_name())
+	if area.get_name() == "Enemy":
+		area.take_damage(BULLET_DAMAGE)
 	queue_free()
-	pass # Replace with function body.

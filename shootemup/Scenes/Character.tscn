@@ -12,7 +12,7 @@
 [ext_resource path="res://Sounds/uzi.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sounds/reload.wav" type="AudioStream" id=11]
 
-[sub_resource type="RectangleShape2D" id=62]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.0788, 9.47836 )
 
 [sub_resource type="Animation" id=2]
@@ -936,10 +936,11 @@ tracks/0/keys = {
 }
 
 [node name="Character" type="Area2D"]
+collision_layer = 2
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 62 )
+shape = SubResource( 1 )
 
 [node name="BaseLowerBodySprite" type="Sprite" parent="."]
 vframes = 4
@@ -1106,8 +1107,10 @@ __meta__ = {
 
 [node name="Change_Clothes" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
+volume_db = -20.0
 
 [node name="Change_Guns" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 11 )
+volume_db = -20.0
 [connection signal="pressed" from="ButtonRight" to="." method="_on_right_button_pressed"]
 [connection signal="pressed" from="ButtonLeft" to="." method="_on_button_left_pressed"]
