@@ -984,7 +984,7 @@ anims/walkup2 = SubResource( 25 )
 [node name="LowerBodySprite" type="Sprite" parent="."]
 vframes = 4
 hframes = 4
-frame = 3
+frame = 2
 
 [node name="LowerBodyAnim" type="AnimationPlayer" parent="."]
 playback_speed = 4.0
@@ -1050,7 +1050,6 @@ stream = ExtResource( 7 )
 volume_db = -20.0
 
 [node name="Uzi_Point" type="Position2D" parent="GunSprite/Gun_Fire_Points"]
-visible = false
 
 [node name="Uzi_Sound" type="AudioStreamPlayer2D" parent="GunSprite/Gun_Fire_Points/Uzi_Point"]
 position = Vector2( -2.7354, -4.49858 )

@@ -5,7 +5,9 @@ var speed = 100
 var velocity
 var last_body_direction = Vector2()
 var last_aim_direction = Vector2()
-var gun_type = 0
+
+var weapons = ["unarmed", "uzi", "shotgun", "magnun"]
+var weapon_equiped = "unarmed"
 
 # Color Settings
 var body_color = Color(1,1,1)
@@ -20,7 +22,7 @@ var upper_body_sprite = load("res://Textures/UpperBody/cloth0.png")
 var base_upper_body_sprite = load("res://Textures/Base/upperbodyatlas.png")
 var lower_body_sprite = load("res://Textures/LowerBody/cloth0.png")
 var base_lower_boddy_sprite = load("res://Textures/Base/lowerbodyatlas.png")
-var gun_sprite = load("res://Textures/Guns/2.png")
+var gun_sprite = load("res://Textures/Guns/unarmed.png")
 
 # Array for Each Assets
 var heads = []
@@ -39,35 +41,56 @@ func _ready():
 	$ButtonLeft.hide()
 	$ButtonRight.hide()
 	$ColorPicker.hide()
-	heads =  _list_files_in_directory("res://Textures/Head/")
-	lower_boddies =  _list_files_in_directory("res://Textures/LowerBody/")
-	upper_bodies =  _list_files_in_directory("res://Textures/UpperBody/")
-	guns = _list_files_in_directory(("res://Textures/Guns/"))
+	heads =  list_files_in_directory("res://Textures/Head/")
+	lower_boddies =  list_files_in_directory("res://Textures/LowerBody/")
+	upper_bodies =  list_files_in_directory("res://Textures/UpperBody/")
+	guns = list_files_in_directory(("res://Textures/Guns/"))
 	load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, gun_sprite)
-	if guns.size() > 0:
-		print("there is stuff")
-	else:
-		print("its empty")
-	
+
 func _process(delta):
 	open_wardrobe()
 	move(delta)
 	animate()
-	shoot()
+	fire_weapon()
 	randomize_character()
 	
-	if Input.is_action_just_pressed("ui_focus_next"):
-		if gun_type + 1 == 4:
-			gun_type = 0
+func _input(event):
+	if event is InputEventKey and event.is_pressed():
+		print(event.scancode)
+		if(event.scancode == 49 || event.scancode == 50 || event.scancode == 51 || event.scancode == 52 || event.scancode == 4 || event.scancode == 5):
+			change_weapon(event.scancode)
+
+func change_weapon(input):
+	if input == 49:
+		guns_pos = 0
+	elif input == 50:
+		guns_pos = 1
+	elif input == 51:
+		guns_pos = 2
+	elif input == 52:
+		guns_pos = 3
+	elif input == 4:
+		if guns_pos < weapons.size() - 1:
+			guns_pos += 1
 		else:
-			gun_type += 1
-		#print("res://Textures/Guns/" + guns[gun_type])
-		load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, load(guns[gun_type]))
-		# Calling the animations right here forces the loading to syncronize
-		aim_animation("idleback")
-		aim_animation("idleright")
-		$Change_Guns.play()
-		
+			guns_pos = 0
+	elif input == 5:
+		if guns_pos > 0:
+			guns_pos -= 1
+		else:
+			guns_pos = weapons.size() - 1
+	# Calling the animations right here forces the loading to syncronize
+	weapon_equiped = weapons[guns_pos]
+	load_sprites(head_sprite, 
+				upper_body_sprite, 
+				base_upper_body_sprite, 
+				lower_body_sprite, 
+				base_lower_boddy_sprite, 
+				load("res://Textures/Guns/" + weapon_equiped + ".png"))
+	aim_animation("idleback")
+	aim_animation("idleright")
+	$Change_Guns.play()
+
 func open_wardrobe():
 	if Input.is_action_just_pressed("ui_accept"):
 		$ButtonRight.visible = ! $ButtonRight.visible
@@ -142,22 +165,18 @@ func load_sprites(head, upper, base_upper, lower, base_lower, gun):
 	$BaseLowerBodySprite.texture = base_lower
 	$GunSprite.texture = gun
 
-func shoot():
+func fire_weapon():
 	if Input.is_action_just_pressed("shoot_right"):
-		last_aim_direction.x = 1
-		last_aim_direction.y = 0
+		last_aim_direction = Vector2.RIGHT
 		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
 	elif Input.is_action_just_pressed("shoot_left"):
-		last_aim_direction.x = -1
-		last_aim_direction.y = 0
+		last_aim_direction = Vector2.LEFT
 		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
 	elif Input.is_action_just_pressed("shoot_down"):
-		last_aim_direction.x = 0
-		last_aim_direction.y = 1
+		last_aim_direction = Vector2.DOWN
 		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
 	elif Input.is_action_just_pressed("shoot_up"):
-		last_aim_direction.x = 0
-		last_aim_direction.y = -1
+		last_aim_direction = Vector2.UP
 		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
 		
 func move(delta):
@@ -189,13 +208,6 @@ func animate():
 		aim_animation("idlefront")
 	elif last_aim_direction.y < 0:
 		aim_animation("idleback")
-	#else:
-	#	if last_aim_direction.y < 0:
-	#		aim_animation("walkright")
-	#	elif last_aim_direction.y > 0:
-	#		aim_animation("walkdown")
-	#	elif last_aim_direction.x != 0:
-	#		aim_animation("walkup")
 	
 	# Logic to Cal Specific Lower Body Animations of the Character
 	if velocity.x != 0:
@@ -216,8 +228,8 @@ func animate():
 
 func aim_animation(animation_name):
 	#Play Specifc Animation for all the Animators
-	$UpperBodyAnim.play(animation_name + str(gun_type))
-	$BaseUpperBodyAnim.play(animation_name + str(gun_type))
+	$UpperBodyAnim.play(animation_name + str(guns_pos))
+	$BaseUpperBodyAnim.play(animation_name + str(guns_pos))
 	$HeadAnim.play(animation_name)
 	$GunAnim.play(animation_name)
 
@@ -226,7 +238,7 @@ func move_animation(animation_name):
 	$BaseLowerBodyAnim.play(animation_name)
 	$LowerBodyAnim.play(animation_name)
 
-func _list_files_in_directory(path):
+func list_files_in_directory(path):
 	# Returns an Array of Strings from the path of assets with .PNG extension from a Directory
 	var files = []
 	var dir = Directory.new()
@@ -237,8 +249,7 @@ func _list_files_in_directory(path):
 		if file == "":
 			break
 		elif file.ends_with(".import"):
-			print(path + file)
-			#print(file)
+			#print(path + file)
 			files.append(path + file.replace(".import",""))
 	dir.list_dir_end()
 	
