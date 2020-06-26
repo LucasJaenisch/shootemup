@@ -1,10 +1,11 @@
-extends Area2D
+extends KinematicBody2D
 
 # Gameplay Variables
 var speed = 100
-var velocity
+var velocity = Vector2(0, 0)
 var last_body_direction = Vector2()
 var last_aim_direction = Vector2()
+var can_move
 
 var weapons = ["unarmed", "uzi", "shotgun", "magnun"]
 var weapon_equiped = "unarmed"
@@ -46,20 +47,15 @@ func _ready():
 	upper_bodies =  list_files_in_directory("res://Textures/UpperBody/")
 	guns = list_files_in_directory(("res://Textures/Guns/"))
 	load_sprites(head_sprite, upper_body_sprite, base_upper_body_sprite, lower_body_sprite, base_lower_boddy_sprite, gun_sprite)
-
-func _process(delta):
-	open_wardrobe()
-	move(delta)
-	animate()
-	fire_weapon()
-	randomize_character()
 	
 func _input(event):
 	if event is InputEventKey and event.is_pressed():
-		print(event.scancode)
+		#print(event.scancode)
 		if(event.scancode == 49 || event.scancode == 50 || event.scancode == 51 || event.scancode == 52 || event.scancode == 4 || event.scancode == 5):
 			change_weapon(event.scancode)
-
+		if(event.is_action("ui_select")):
+			fire_weapon()
+		
 func change_weapon(input):
 	if input == 49:
 		guns_pos = 0
@@ -81,18 +77,13 @@ func change_weapon(input):
 			guns_pos = weapons.size() - 1
 	# Calling the animations right here forces the loading to syncronize
 	weapon_equiped = weapons[guns_pos]
-	load_sprites(head_sprite, 
-				upper_body_sprite, 
-				base_upper_body_sprite, 
-				lower_body_sprite, 
-				base_lower_boddy_sprite, 
-				load("res://Textures/Guns/" + weapon_equiped + ".png"))
+	$GunSprite.texture = load("res://Textures/Guns/" + weapon_equiped + ".png")
 	aim_animation("idleback")
 	aim_animation("idleright")
 	$Change_Guns.play()
 
 func open_wardrobe():
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_focus_next"):
 		$ButtonRight.visible = ! $ButtonRight.visible
 		$ButtonLeft.visible = ! $ButtonLeft.visible
 		$ColorPicker.visible = ! $ColorPicker.visible
@@ -141,20 +132,19 @@ func dress_and_paint():
 			$ButtonLeft.rect_position.y = 6
 
 func randomize_character():
-	if Input.is_action_just_pressed("mouse_right"):
-		head_sprite = load(heads[int(rand_range(0,heads.size() - 1))])
-		$HeadSprite.texture = head_sprite
-		upper_body_sprite = load(upper_bodies[int(rand_range(0,upper_bodies.size() - 1))])
-		$UpperBodySprite.texture = upper_body_sprite
-		lower_body_sprite = load(lower_boddies[int(rand_range(0,lower_boddies.size() - 1))])
-		$LowerBodySprite.texture = lower_body_sprite
-		$HeadSprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
-		$UpperBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
-		$LowerBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
-		body_color = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
-		$BaseLowerBodySprite.modulate = body_color
-		$BaseUpperBodySprite.modulate = body_color
-		$Change_Clothes.play()
+	head_sprite = load(heads[int(rand_range(0,heads.size() - 1))])
+	$HeadSprite.texture = head_sprite
+	upper_body_sprite = load(upper_bodies[int(rand_range(0,upper_bodies.size() - 1))])
+	$UpperBodySprite.texture = upper_body_sprite
+	lower_body_sprite = load(lower_boddies[int(rand_range(0,lower_boddies.size() - 1))])
+	$LowerBodySprite.texture = lower_body_sprite
+	$HeadSprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	$UpperBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	$LowerBodySprite.modulate = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	body_color = Color(rand_range(0,1), rand_range(0,1), rand_range(0,1))
+	$BaseLowerBodySprite.modulate = body_color
+	$BaseUpperBodySprite.modulate = body_color
+	$Change_Clothes.play()
 	
 # Puts a LOADED texture in the sprites texture
 func load_sprites(head, upper, base_upper, lower, base_lower, gun):
@@ -164,37 +154,21 @@ func load_sprites(head, upper, base_upper, lower, base_lower, gun):
 	$LowerBodySprite.texture = lower
 	$BaseLowerBodySprite.texture = base_lower
 	$GunSprite.texture = gun
+	
+func aim():
+	pass
 
 func fire_weapon():
-	if Input.is_action_just_pressed("shoot_right"):
-		last_aim_direction = Vector2.RIGHT
+	if(weapon_equiped != "unarmed"):
+		#weapon_manager.fire_weapon(last_aim_direction)
 		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
-	elif Input.is_action_just_pressed("shoot_left"):
-		last_aim_direction = Vector2.LEFT
-		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
-	elif Input.is_action_just_pressed("shoot_down"):
-		last_aim_direction = Vector2.DOWN
-		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
-	elif Input.is_action_just_pressed("shoot_up"):
-		last_aim_direction = Vector2.UP
-		$GunSprite/Gun_Fire_Points/Shotgun_Point.fire_weapon(last_aim_direction)
+		#print("I m shooting")	
+	else:
+		pass
+		#print("I dont have any gun equiped")
 		
-func move(delta):
-	velocity = Vector2(0,0)
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
-		
-	if velocity.length() > 0:
-		last_body_direction = velocity
-		velocity = velocity.normalized() * speed
-		
-	position += velocity * delta
+func move():
+	pass
 
 func animate():
 	# Logic to Cal Specific Upper Body Animations of the Character
