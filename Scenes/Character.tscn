@@ -1065,10 +1065,10 @@ anims/walkright = SubResource( 60 )
 anims/walkup = SubResource( 61 )
 
 [node name="ColorPicker" type="ColorPicker" parent="."]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 4.0
-margin_bottom = 4.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 8.0
+margin_bottom = 8.0
 rect_scale = Vector2( 0.1, 0.1 )
 rect_pivot_offset = Vector2( 20, -20 )
 color = Color( 0.470588, 0.286275, 0.286275, 1 )
